@@ -7,5 +7,6 @@ Features:
 
 To do:
 
+- Restart button;
 - Chronometer;
-- Report/Refresh view;
+- Report view;
