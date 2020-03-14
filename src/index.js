@@ -1,51 +1,58 @@
 import React, { Component } from 'react';
-import { StyleSheet, TextInput, Text, View } from 'react-native';
+import { View, Text } from 'react-native';
+import { Home } from './components';
+import { Verb } from './utils';
 
 export default class SimplePastApp extends Component {
 
+    state = {
+        userInput: '',
+        verb: '',
+        coins: 0,
+        rate: 0
+    }
+
     constructor(props) {
         super(props);
-        this.state = { text: props.text };
+        this.state = {
+            userInput: '',
+            verb: this.getVerb(),
+            coins: 0,
+            rate: 4
+        }
     }
+
+    getVerb = () => {
+        let min = this.state.rate;
+        let max = min + 3;
+        let random = Math.floor(Math.random() * (max - min + 1)) + min;
+        return Verb[random];
+    }
+
+    verifySimplePast = (userInput) => {
+        this.getVerb();
+        if (userInput == this.state.verb.pastTenseForm) {
+            this.setState({
+                verb: this.getVerb(),
+                userInput: '',
+                coins: this.state.coins + 3,
+                rate: this.state.rate + 4
+            });
+        } else {
+            this.setState({
+                userInput: userInput,
+            });
+        }
+    };
 
     render() {
         return (
-            <View style={styles.container}>
-                <View style={styles.viewText}>
-                    <Text style={styles.blueText}>
-                        {this.state.text}
-                    </Text>
-                </View>
-                <TextInput
-                    style={styles.textInput}
-                    placeholder="Type here!"
-                    onChangeText={(text) => this.setState({ text })}
-                    value={this.state.text}
-                />
-            </View>
+            <Home
+                userInput={this.state.userInput}
+                coins={this.state.coins}
+                verb={this.state.verb.baseForm}
+                onChangeText={userInput => { this.verifySimplePast(userInput) }}
+            />
         );
     }
 }
-
-// styles
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: '100%',
-    },
-    viewText: {
-        flex: 3,
-        justifyContent: 'center',
-    },
-    blueText: {
-        color: 'blue',
-        fontWeight: 'bold',
-        fontSize: 38,
-    },
-    textInput: {
-        flex: 1,
-        textAlign: 'center',
-    }
-});
