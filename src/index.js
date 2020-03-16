@@ -63,7 +63,6 @@ export default class SimplePastApp extends Component {
     }
 
     restart = () => {
-        console.warn('enter');
         this.setState({
             userInput: '',
             verb: this.getVerb(),
