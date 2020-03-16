@@ -8,6 +8,7 @@ export default class SimplePastApp extends Component {
         userInput: '',
         verb: '',
         coins: 0,
+        coinsText: 'coins',
         rate: 0
     }
 
@@ -17,13 +18,24 @@ export default class SimplePastApp extends Component {
             userInput: '',
             verb: this.getVerb(),
             coins: 0,
-            rate: 4
+            coinsText: 'coins',
+            rate: 95
         }
     }
 
     getVerb = () => {
         let min = this.state.rate;
         let max = min + 3;
+
+        if (max > Verb.length) {
+            max = Verb.length;
+
+            this.setState({
+                rate: 4,
+                coinsText: this.state.coinsText + '*'
+            });
+        }
+
         let random = Math.floor(Math.random() * (max - min + 1)) + min;
         return Verb[random];
     }
@@ -31,12 +43,7 @@ export default class SimplePastApp extends Component {
     verifySimplePast = (userInput) => {
         this.getVerb();
         if (userInput == this.state.verb.pastTenseForm) {
-            this.setState({
-                verb: this.getVerb(),
-                userInput: '',
-                coins: this.state.coins + 3,
-                rate: this.state.rate + 4
-            });
+            this.levelUp();
         } else {
             this.setState({
                 userInput: userInput,
@@ -44,8 +51,13 @@ export default class SimplePastApp extends Component {
         }
     };
 
-    nextVerb = () => {
-
+    levelUp = () => {
+        this.setState({
+            verb: this.getVerb(),
+            userInput: '',
+            coins: this.state.coins + 3,
+            rate: this.state.rate + 4
+        });
     }
 
     restart = () => {
@@ -53,6 +65,7 @@ export default class SimplePastApp extends Component {
             userInput: '',
             verb: this.getVerb(),
             coins: 0,
+            coins: 'coins',
             rate: 0
         });
     }
@@ -65,6 +78,7 @@ export default class SimplePastApp extends Component {
                 verb={this.state.verb.baseForm}
                 onChangeText={userInput => { this.verifySimplePast(userInput) }}
                 fnRestart={this.restart}
+                coinsText={this.state.coinsText}
             />
         );
     }

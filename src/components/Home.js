@@ -5,7 +5,7 @@ import { HomeStyle as style, Colors } from '../styles';
 const ICON_RESTART_SRC = require('../assets/images/restart.png');
 const INPUT_MAX_LENGTH = 26;
 
-const Home = ({ userInput, coins, verb, onChangeText, fnRestart }) => {
+const Home = ({ coins, coinsText, verb, userInput, onChangeText, fnRestart }) => {
     return (
         <View style={style.container}>
 
@@ -17,7 +17,7 @@ const Home = ({ userInput, coins, verb, onChangeText, fnRestart }) => {
                 </View>
                 <View style={style.coinsView}>
                     <Text style={style.coins}>{coins}</Text>
-                    <Text style={style.coinsText}>coins</Text>
+                    <Text style={style.coinsText}>{coinsText}</Text>
                 </View>
                 <View style={style.shareView}></View>
             </View>
