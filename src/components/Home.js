@@ -10,10 +10,8 @@ const Home = ({ coins, coinsText, verb, userInput, onChangeText, fnRestart }) =>
         <View style={style.container}>
 
             <View style={style.header}>
-                <View style={style.iconRestartView}>
-                    <TouchableOpacity onPress={fnRestart}>
-                        <Image source={ICON_RESTART_SRC} style={style.iconRestartImage}></Image>
-                    </TouchableOpacity>
+                <View style={style.iconRestartView} onTouchEnd={fnRestart}>
+                    <Image source={ICON_RESTART_SRC} style={style.iconRestartImage}></Image>
                 </View>
                 <View style={style.coinsView}>
                     <Text style={style.coins}>{coins}</Text>

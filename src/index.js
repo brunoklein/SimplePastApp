@@ -2,14 +2,17 @@ import React, { Component } from 'react';
 import { Home } from './components';
 import { Verb } from './utils';
 
+const DEFAULT_RATE = 0;
+const DEFAULT_COINS = 0;
+
 export default class SimplePastApp extends Component {
 
     state = {
         userInput: '',
         verb: '',
-        coins: 0,
+        coins: DEFAULT_COINS,
         coinsText: 'coins',
-        rate: 0
+        rate: DEFAULT_RATE
     }
 
     constructor(props) {
@@ -17,9 +20,9 @@ export default class SimplePastApp extends Component {
         this.state = {
             userInput: '',
             verb: this.getVerb(),
-            coins: 0,
+            coins: DEFAULT_COINS,
             coinsText: 'coins',
-            rate: 95
+            rate: DEFAULT_RATE
         }
     }
 
@@ -29,10 +32,9 @@ export default class SimplePastApp extends Component {
 
         if (max > Verb.length) {
             max = Verb.length;
-
             this.setState({
-                rate: 4,
-                coinsText: this.state.coinsText + '*'
+                coinsText: this.state.coinsText + '*',
+                rate: DEFAULT_RATE
             });
         }
 
@@ -42,7 +44,7 @@ export default class SimplePastApp extends Component {
 
     verifySimplePast = (userInput) => {
         this.getVerb();
-        if (userInput == this.state.verb.pastTenseForm) {
+        if (userInput.toLowerCase() == this.state.verb.pastTenseForm) {
             this.levelUp();
         } else {
             this.setState({
@@ -61,12 +63,13 @@ export default class SimplePastApp extends Component {
     }
 
     restart = () => {
+        console.warn('enter');
         this.setState({
             userInput: '',
             verb: this.getVerb(),
-            coins: 0,
-            coins: 'coins',
-            rate: 0
+            coins: DEFAULT_COINS,
+            coinsText: 'coins',
+            rate: DEFAULT_RATE
         });
     }
 
