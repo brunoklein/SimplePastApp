@@ -22,7 +22,7 @@ export default class SimplePastApp extends Component {
             verb: this.getVerb(),
             coins: DEFAULT_COINS,
             coinsText: 'coins',
-            rate: DEFAULT_RATE
+            rate: 4
         }
     }
 
@@ -63,12 +63,13 @@ export default class SimplePastApp extends Component {
     }
 
     restart = () => {
-        this.setState({
-            userInput: '',
-            verb: this.getVerb(),
-            coins: DEFAULT_COINS,
-            coinsText: 'coins',
-            rate: DEFAULT_RATE
+        this.setState({ rate: DEFAULT_RATE }, () => {
+            this.setState({
+                userInput: '',
+                verb: this.getVerb(),
+                coins: DEFAULT_COINS,
+                coinsText: 'coins'
+            })
         });
     }
 
