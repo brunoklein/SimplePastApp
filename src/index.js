@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
 import { Home } from './components';
 import { Verb } from './utils';
 
