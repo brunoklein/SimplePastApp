@@ -26,14 +26,14 @@ const style = StyleSheet.create({
 
     coinsView: {
         flex: 1,
-        alignItems: 'center',
         justifyContent: 'center',
         alignItems: 'center',
     },
 
     textInputView: {
         flex: 1,
-
+        justifyContent: 'center',
+        alignItems: 'center',
     },
 
     shareView: {

@@ -44,6 +44,19 @@ export default class SimplePastApp extends Component {
         }
     };
 
+    nextVerb = () => {
+
+    }
+
+    restart = () => {
+        this.setState({
+            userInput: '',
+            verb: this.getVerb(),
+            coins: 0,
+            rate: 0
+        });
+    }
+
     render() {
         return (
             <Home
@@ -51,6 +64,7 @@ export default class SimplePastApp extends Component {
                 coins={this.state.coins}
                 verb={this.state.verb.baseForm}
                 onChangeText={userInput => { this.verifySimplePast(userInput) }}
+                fnRestart={this.restart}
             />
         );
     }

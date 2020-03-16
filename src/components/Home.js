@@ -1,17 +1,19 @@
 import React from 'react';
-import { TextInput, Text, View, Image } from 'react-native';
+import { TextInput, Text, View, Image, TouchableOpacity } from 'react-native';
 import { HomeStyle as style, Colors } from '../styles';
 
 const ICON_RESTART_SRC = require('../assets/images/restart.png');
 const INPUT_MAX_LENGTH = 26;
 
-const Home = ({ userInput, coins, verb, onChangeText }) => {
+const Home = ({ userInput, coins, verb, onChangeText, fnRestart }) => {
     return (
         <View style={style.container}>
 
             <View style={style.header}>
                 <View style={style.iconRestartView}>
-                    <Image source={ICON_RESTART_SRC} style={style.iconRestartImage}></Image>
+                    <TouchableOpacity onPress={fnRestart}>
+                        <Image source={ICON_RESTART_SRC} style={style.iconRestartImage}></Image>
+                    </TouchableOpacity>
                 </View>
                 <View style={style.coinsView}>
                     <Text style={style.coins}>{coins}</Text>
@@ -31,7 +33,7 @@ const Home = ({ userInput, coins, verb, onChangeText }) => {
                     style={style.textInput}
                     placeholderTextColor={Colors.EASY_COLOR}
                     maxLength={INPUT_MAX_LENGTH}
-                    placeholder="Type here!"
+                    placeholder={'type the past simple here'}
                     onChangeText={onChangeText}
                     value={userInput}
                 />
