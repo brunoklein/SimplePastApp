@@ -2,20 +2,16 @@ import React, { Component } from 'react';
 import { View } from 'react-native';
 import { GameHeader, GameMain } from '../components';
 import { Game as style } from '../styles';
-import { Verb } from '../utils';
-
-const DEFAULT_RATE = 0;
-const DEFAULT_COINS = 0;
-const MESSAGE = ' They will ignore you, until they can\'t ';
+import { Verb, Constants } from '../utils';
 
 export default class Game extends Component {
 
     state = {
         userInput: '',
         verb: '',
-        coins: DEFAULT_COINS,
+        coins: Constants.DEFAULT_COINS,
         coinsText: 'coins',
-        rate: DEFAULT_RATE
+        rate: Constants.DEFAULT_RATE
     }
 
     constructor(props) {
@@ -23,7 +19,7 @@ export default class Game extends Component {
         this.state = {
             userInput: '',
             verb: this.getVerb(),
-            coins: DEFAULT_COINS,
+            coins: Constants.DEFAULT_COINS,
             coinsText: 'coins',
             rate: 4
         }
@@ -37,7 +33,7 @@ export default class Game extends Component {
             max = Verb.length;
             this.setState({
                 coinsText: this.state.coinsText + '*',
-                rate: DEFAULT_RATE
+                rate: Constants.DEFAULT_RATE
             });
         }
 
@@ -65,11 +61,11 @@ export default class Game extends Component {
     }
 
     restart = () => {
-        this.setState({ rate: DEFAULT_RATE }, () => {
+        this.setState({ rate: Constants.DEFAULT_RATE }, () => {
             this.setState({
                 userInput: '',
                 verb: this.getVerb(),
-                coins: DEFAULT_COINS,
+                coins: Constants.DEFAULT_COINS,
                 coinsText: 'coins'
             })
         });
