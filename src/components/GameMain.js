@@ -23,7 +23,6 @@ const GameMain = ({ verb, userInput, onChangeText }) => {
                 />
             </View>
         </View>
-
     )
 }
 

@@ -12,7 +12,7 @@ const style = StyleSheet.create({
 
     header: {
         height: 90,
-        justifyContent: 'center',
+        alignItems: 'flex-end',
         flexDirection: 'row',
     },
 
@@ -30,7 +30,6 @@ const style = StyleSheet.create({
 
     shareView: {
         flex: 1,
-        alignItems: 'center',
         justifyContent: 'center',
         alignItems: 'center',
     },
@@ -70,8 +69,9 @@ const style = StyleSheet.create({
     },
 
     verbView: {
-        flex: 4,
+        flex: 3,
         justifyContent: 'center',
+        alignItems: 'center',
     },
 
     verb: {
