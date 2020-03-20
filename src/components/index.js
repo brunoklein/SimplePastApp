@@ -1,3 +1,4 @@
-import Home from './Home';
+import GameHeader from './GameHeader';
+import GameMain from './GameMain';
 
-export { Home };
+export { GameHeader, GameMain };

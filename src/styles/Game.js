@@ -1,21 +1,19 @@
 import { StyleSheet } from 'react-native';
-import * as Colors from './colors';
+import * as Colors from './Colors';
 
 const style = StyleSheet.create({
+
     container: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        height: '100%',
         backgroundColor: Colors.BACKGROUND_COLOR,
-
     },
 
     header: {
-        flex: 1,
+        height: 90,
+        justifyContent: 'center',
         flexDirection: 'row',
-        marginTop: 26,
-
     },
 
     iconRestartView: {
@@ -25,12 +23,6 @@ const style = StyleSheet.create({
     },
 
     coinsView: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-
-    textInputView: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
@@ -64,8 +56,21 @@ const style = StyleSheet.create({
 
     },
 
-    verbView: {
+    main: {
         flex: 3,
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+
+    textInputView: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+
+    verbView: {
+        flex: 4,
         justifyContent: 'center',
     },
 

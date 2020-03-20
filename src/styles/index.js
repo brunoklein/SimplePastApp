@@ -1,4 +1,4 @@
-import { style as HomeStyle} from './home';
-import * as Colors from './colors';
+import { style as Game} from './Game';
+import * as Colors from './Colors';
 
-export { HomeStyle, Colors };
+export { Game, Colors };
