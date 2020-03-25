@@ -5,18 +5,26 @@ const style = StyleSheet.create({
 
     container: {
         flex: 1,
+        flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: Colors.BACKGROUND_COLOR,
     },
 
+    main: {
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+
     header: {
-        height: 90,
-        alignItems: 'flex-end',
+        height: 100,
+        alignItems: 'center',
         flexDirection: 'row',
     },
 
-    iconRestartView: {
+    restartView: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
@@ -34,7 +42,7 @@ const style = StyleSheet.create({
         alignItems: 'center',
     },
 
-    iconRestartImage: {
+    restartImage: {
         height: 32,
         width: 32,
         tintColor: Colors.EASY_COLOR,
@@ -53,13 +61,6 @@ const style = StyleSheet.create({
         fontSize: 18,
         color: Colors.EASY_COLOR,
 
-    },
-
-    main: {
-        flex: 3,
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
     },
 
     textInputView: {

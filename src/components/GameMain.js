@@ -1,15 +1,20 @@
 import React from 'react';
 import { TextInput, Text, View } from 'react-native';
-import { Game as style, Colors } from '../styles';
+import { GameStyle as style, Colors } from '../styles';
 import { Constants } from '../utils';
+import TimeLine from './TimeLine';
 
-const GameMain = ({ verb, userInput, onChangeText }) => {
+const GameMain = ({ isVisible, verb, userInput, onChangeText, totalTime, timeRemaining }) => {
+    if (!isVisible) return null;
+    
     return (
         <View style={style.main}>
+
             <View style={style.verbView}>
                 <Text style={style.verb}>
                     {verb}
                 </Text>
+                <TimeLine totalTime={totalTime} timeRemaining={timeRemaining}></TimeLine>
             </View>
 
             <View style={style.textInputView}>

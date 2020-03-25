@@ -1,20 +1,27 @@
 import React from 'react';
 import { Text, View, Image } from 'react-native';
-import { Game as style } from '../styles';
+import { GameStyle as style } from '../styles';
 import { Constants } from '../utils';
 
-const GameHeader = ({ coins, coinsText, fnRestart }) => {
+const GameHeader = ({ coins, coinsText, fnRestart, fnShare, hideRestart, hideShare }) => {
     return (
 
         <View style={style.header}>
-            <View style={style.iconRestartView} onTouchEnd={fnRestart}>
-                <Image source={Constants.ICON_RESTART_SRC} style={style.iconRestartImage}></Image>
+
+            <View style={style.restartView} onTouchEnd={fnRestart}>
+                {!hideRestart ?
+                    <Image source={Constants.ICON_RESTART_SRC} style={style.restartImage}></Image>
+                    : null
+                }
             </View>
             <View style={style.coinsView}>
                 <Text style={style.coins}>{coins}</Text>
                 <Text style={style.coinsText}>{coinsText}</Text>
             </View>
-            <View style={style.shareView}></View>
+            {!hideShare ?
+                <View style={style.shareView} onTouchEnd={fnShare}></View>
+                : null
+            }
         </View>
 
     )
