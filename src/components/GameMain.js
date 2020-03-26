@@ -25,6 +25,8 @@ const GameMain = ({ isVisible, verb, userInput, onChangeText, totalTime, timeRem
                     placeholder={'type the past simple here'}
                     onChangeText={onChangeText}
                     value={userInput}
+                    maxLength={28}
+                    autoFocus={true}
                 />
             </View>
         </View>

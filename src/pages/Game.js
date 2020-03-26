@@ -23,10 +23,10 @@ export default class Game extends Component {
         super(props);
         this.state = {
             userInput: '',
-            verb: this.getVerb(),
+            verb: '',
             coins: Constants.DEFAULT_COINS,
             coinsText: 'coins',
-            rate: 4,
+            rate: Constants.DEFAULT_RATE,
             playing: false,
             timeRemaining: Constants.BASE_TIME_MS,
             textReport: Constants.TEXT_PLAY,
@@ -51,11 +51,14 @@ export default class Game extends Component {
 
     levelUp = () => {
         this.setState({
-            verb: this.getVerb(),
             userInput: '',
             coins: this.state.coins + 3,
             rate: this.state.rate + 4,
             timeRemaining: Constants.BASE_TIME_MS
+        }, () => {
+            this.setState({
+                verb: this.getVerb(),
+            });
         });
     }
 
