@@ -75,7 +75,7 @@ export default class Game extends Component {
     restartGame = () => {
         this.setState({
             rate: Constants.DEFAULT_RATE,
-            restartTimer: Constants.BASE_TIME_MS,
+            timeRemaining: Constants.BASE_TIME_MS
         }, () => {
             clearTimeout(this.state.timer);
             this.setState({
@@ -84,7 +84,6 @@ export default class Game extends Component {
                 coins: Constants.DEFAULT_COINS,
                 coinsText: 'coins',
                 playing: true,
-                timeRemaining: Constants.BASE_TIME_MS
             }, this.startTimer);
         });
     }
@@ -92,23 +91,23 @@ export default class Game extends Component {
     startTimer = () => {
         this.setState({
             timer: setTimeout(() => {
-                if (this.state.timeRemaining == 0) {
+                if (this.state.timeRemaining <= 0) {
                     this.gameOver();
                 } else {
                     this.setState({
-                        timeRemaining: this.state.timeRemaining - 200
+                        timeRemaining: this.state.timeRemaining - 300
                     }, this.startTimer);
                 }
-            }, 200)
+            }, 300)
         });
     }
 
     gameOver = () => {
+        clearTimeout(this.state.timer);
         this.setState({
+            playing: false,
             textReport: `${this.state.verb.baseForm} = ${this.state.verb.pastTenseForm}`,
-            reportImage: Constants.ICON_RESTART_SRC
-        }, () => {
-            this.setState({ playing: false });
+            reportImage: Constants.ICON_RESTART_SRC,
         });
     }
 
