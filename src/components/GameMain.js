@@ -21,7 +21,7 @@ const GameMain = ({ isVisible, verb, userInput, onChangeText, totalTime, timeRem
                 <Text style={style.textInputInfo}>{Constants.TEXT_TYPE_PAST_SIMPLE}</Text>
                 <TextInput
                     style={style.textInput}
-                    placeholderTextColor={Colors.EASY_COLOR}
+                    placeholderTextColor={Colors.MEDIUM_COLOR}
                     maxLength={Constants.INPUT_MAX_LENGTH}
                     onChangeText={onChangeText}
                     placeholder={'here'}
