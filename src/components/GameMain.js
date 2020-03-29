@@ -27,6 +27,8 @@ const GameMain = ({ isVisible, verb, userInput, onChangeText, totalTime, timeRem
                     value={userInput}
                     maxLength={28}
                     autoFocus={true}
+                    blurOnSubmit={false}
+                    autoCapitalize={'none'}
                 />
             </View>
         </View>
