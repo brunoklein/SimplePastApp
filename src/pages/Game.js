@@ -19,6 +19,8 @@ export default class Game extends Component {
         timer: null
     }
 
+    regexStartSpace = /^\s*/;
+
     constructor(props) {
         super(props);
     }
@@ -39,7 +41,7 @@ export default class Game extends Component {
 
     levelUp = () => {
         this.setState({
-            userInput: '',
+            userInput: ' ',
             coins: this.state.coins + 3,
             rate: this.state.rate + 4,
             timeRemaining: Constants.BASE_TIME_MS
@@ -50,14 +52,10 @@ export default class Game extends Component {
         });
     }
 
-    verifyInput = (userInput) => {
-        if (this.state.playing && userInput.toLowerCase() == this.state.verb.pastTenseForm) {
+    verifyInput = () => {
+        if (this.state.playing && this.state.userInput.toLowerCase() == this.state.verb.pastTenseForm) {
             this.levelUp();
-        } else {
-            this.setState({
-                userInput: userInput,
-            });
-        }
+        };
     };
 
     restartGame = () => {
@@ -120,7 +118,9 @@ export default class Game extends Component {
                     isVisible={this.state.playing}
                     userInput={this.state.userInput}
                     verb={this.state.verb.baseForm}
-                    onChangeText={userInput => { this.verifyInput(userInput) }}
+                    onChangeText={userInput => { 
+                        this.setState({userInput: userInput.replace(this.regexStartSpace, '')}, this.verifyInput);
+                    }}
                     timeRemaining={this.state.timeRemaining}
                     totalTime={Constants.BASE_TIME_MS}
                 />
