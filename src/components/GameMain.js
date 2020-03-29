@@ -6,7 +6,7 @@ import TimeLine from './TimeLine';
 
 const GameMain = ({ isVisible, verb, userInput, onChangeText, totalTime, timeRemaining }) => {
     if (!isVisible) return null;
-    
+
     return (
         <View style={style.main}>
 
@@ -18,11 +18,11 @@ const GameMain = ({ isVisible, verb, userInput, onChangeText, totalTime, timeRem
             </View>
 
             <View style={style.textInputView}>
+                <Text style={style.textInputInfo}>{Constants.TEXT_TYPE_PAST_SIMPLE}</Text>
                 <TextInput
                     style={style.textInput}
                     placeholderTextColor={Colors.EASY_COLOR}
                     maxLength={Constants.INPUT_MAX_LENGTH}
-                    placeholder={'type the past simple here'}
                     onChangeText={onChangeText}
                     value={userInput}
                     maxLength={28}
