@@ -65,7 +65,7 @@ export default class Game extends Component {
         }, () => {
             clearTimeout(this.state.timer);
             this.setState({
-                userInput: '',
+                userInput: ' ',
                 verb: this.getVerb(),
                 coins: Constants.DEFAULT_COINS,
                 coinsText: 'coins',
