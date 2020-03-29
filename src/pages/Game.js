@@ -21,18 +21,6 @@ export default class Game extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            userInput: '',
-            verb: '',
-            coins: Constants.DEFAULT_COINS,
-            coinsText: 'coins',
-            rate: Constants.DEFAULT_RATE,
-            playing: false,
-            timeRemaining: Constants.BASE_TIME_MS,
-            textReport: Constants.TEXT_PLAY,
-            reportImage: Constants.ICON_PLAY_SRC,
-            timer: null
-        }
     }
 
     getVerb = () => {
@@ -139,5 +127,4 @@ export default class Game extends Component {
             </View>
         );
     }
-
 }
