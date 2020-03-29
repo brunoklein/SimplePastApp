@@ -7,4 +7,3 @@ export const TEXT_PLAY = 'are you ready?';
 export const TEXT_APP_NAME = 'Simple Past App';
 export const APP_VERSION = '1.0';
 export const BASE_TIME_MS = 6500;
-export const MESSAGE = 'They will ignore you, until they can\'t ';
