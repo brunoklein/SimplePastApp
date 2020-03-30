@@ -84,7 +84,7 @@ const style = StyleSheet.create({
     textInput: {
         flex: 1,
         textAlign: 'center',
-        color: Colors.EASY_COLOR,
+        color: Colors.MEDIUM_COLOR,
     },
 
 });

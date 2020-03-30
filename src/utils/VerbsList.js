@@ -1,4 +1,4 @@
-const verbs = [
+const verbsList = [
     { id: 1, baseForm: "say", pastTenseForm: "said", pastParticipleForm: "saidid" },
     { id: 2, baseForm: "make", pastTenseForm: "made", pastParticipleForm: "madeid" },
     { id: 3, baseForm: "go", pastTenseForm: "went", pastParticipleForm: "goneid" },
@@ -101,4 +101,4 @@ const verbs = [
     { id: 100, baseForm: "withdraw", pastTenseForm: "withdrew", pastParticipleForm: "withdrawn" },
 ];
 
-export default verbs;
+export default verbsList;

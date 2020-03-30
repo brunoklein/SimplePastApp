@@ -20,9 +20,9 @@ const GameMain = ({ isVisible, verb, userInput, onChangeText, totalTime, timeRem
             <View style={style.textInputView}>
                 <TextInput
                     style={style.textInput}
-                    placeholderTextColor={Colors.EASY_COLOR}
+                    placeholderTextColor={Colors.MEDIUM_COLOR}
                     maxLength={Constants.INPUT_MAX_LENGTH}
-                    placeholder={'type the past simple here'}
+                    placeholder={'here'}
                     onChangeText={onChangeText}
                     value={userInput}
                     maxLength={28}

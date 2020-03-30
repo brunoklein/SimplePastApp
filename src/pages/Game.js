@@ -1,41 +1,61 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View } from 'react-native';
 import { GameHeader, GameMain, GameReport } from '../components';
 import { GameStyle as style } from '../styles';
-import { Verb, Constants } from '../utils';
+import { VerbsList, Constants } from '../utils';
 
-const Game = (props) => {
+const Game = () => {
 
     const [userInput, setUserInput] = useState('');
     const [currentVerb, setCurrentVerb] = useState('');
     const [coins, setCoins] = useState(Constants.DEFAULT_COINS);
     const [coinsText, setCoinsText] = useState('coins');
-    const [rate, setRate] = useState(Constants.DEFAULT_RATE);
-    const [playing, setPlaying] = useState(false);
     const [textReport, setTextReport] = useState(Constants.TEXT_PLAY);
     const [reportImage, setReportImage] = useState(Constants.ICON_PLAY_SRC);
+    const [playing, setPlaying] = useState(false);
     const [timeRemaining, setTimeRemaining] = useState(Constants.BASE_TIME_MS);
-    const [timer, setTimer] = useState(null);
+    const [rate, setRate] = useState(Constants.DEFAULT_RATE);
+    const [restartTime, setRestartTime] = useState(null);
+    // const [timer, setTimer] = useState(null);
+    let timer = null;
 
-    getVerb = () => {
-        let min = rate;
-        let max = min + 3;
-        if (max > Verb.length) {
-            max = Verb.length;
-            setCoinsText(coinsText + '*');
+    useEffect(
+        () => { verifyInput(userInput) },
+        [userInput]
+    );
+
+    useEffect(
+        () => {
+            console.log(`timeRemaining EFFECT ${timeRemaining}`);
+            if (playing && timeRemaining <= 0) {
+                gameOver();
+            }
+        }, [timeRemaining]
+    );
+
+    useEffect(
+        () => { setCurrentVerb(getVerb()) },
+        [rate]
+    );
+
+    useEffect(
+        () => {
+            console.log(`RESTART TIME EFFECT`);
+            setUserInput('');
+            setTimeRemaining(Constants.BASE_TIME_MS);
             setRate(Constants.DEFAULT_RATE);
-        }
-        let random = Math.floor(Math.random() * (max - min + 1)) + min;
-        return Verb[random];
-    }
+            setCoins(Constants.DEFAULT_COINS);
+            setCoinsText('coins');
+            setCurrentVerb(getVerb())
+        }, [restartTime]
+    );
 
-    levelUp = () => {
-        setTimeRemaining(Constants.BASE_TIME_MS);
-        setUserInput('');
-        setCoins(coins + 3);
-        setRate(rate + 4);
-        setCurrentVerb(getVerb());
-        console.warn(timeRemaining);
+    startNewTimeout = () => {
+        timer = setTimeout(() => {
+            if (playing) {
+                setTimeRemaining(timeRemaining - 1000);
+            }
+        }, 1000);
     }
 
     verifyInput = (userInput) => {
@@ -44,40 +64,42 @@ const Game = (props) => {
         }
     };
 
-    restartGame = () => {
-        setTimeRemaining(Constants.BASE_TIME_MS)
-            // nao aceita .then :(
-            .then(
-                () => setRate(Constants.DEFAULT_RATE)
-            ).then(
-                () => {
-                    clearTimeout(timer);
-                    setUserInput('');
-                    setCoins(Constants.DEFAULT_COINS);
-                    setCoinsText('coins');
-                    setCurrentVerb(getVerb());
-                    setPlaying(true);
-                }
-            ).then(startTimer);
-    }
+    levelUp = () => {
+        console.log('LEVEL UP');
+        setTimeRemaining(Constants.BASE_TIME_MS);
+        setUserInput('');
+        setCoins(coins + 3);
+        setRate(rate + 4);
+    };
 
-    startTimer = () => {
-        setTimeout(() => {
-            if (timeRemaining <= 0) {
-                gameOver();
-            } else {
-                setTimeRemaining(timeRemaining - 1000);
-                startTimer();
-            }
-        }, 1000);
-    }
+    restartGame = () => {
+        console.log('RESTART');
+        setRestartTime(new Date().getTime());
+        setPlaying(true);
+        clearTimeout(timer);
+        startNewTimeout();
+    };
 
     gameOver = () => {
-        setPlaying(false);
+        console.log('GAME OVER', timer);
         clearTimeout(timer);
+        setPlaying(false);
         setTextReport(`${currentVerb.baseForm} = ${currentVerb.pastTenseForm}`);
         setReportImage(Constants.ICON_RESTART_SRC);
-    }
+    };
+
+    getVerb = () => {
+        console.log('GET VERB');
+        let min = rate;
+        let max = min + 3;
+        if (max > VerbsList.length) {
+            max = VerbsList.length;
+            setCoinsText(coinsText + '*');
+            setRate(Constants.DEFAULT_RATE);
+        }
+        let random = Math.floor(Math.random() * (max - min + 1)) + min;
+        return VerbsList[random];
+    };
 
     return (
         <View style={style.container}>
@@ -99,10 +121,7 @@ const Game = (props) => {
                 isVisible={playing}
                 userInput={userInput}
                 verb={currentVerb.baseForm}
-                onChangeText={userInput => {
-                    setUserInput(userInput)
-                    verifyInput(userInput)
-                }}
+                onChangeText={userInput => setUserInput(userInput)}
                 timeRemaining={timeRemaining}
                 totalTime={Constants.BASE_TIME_MS}
             />
