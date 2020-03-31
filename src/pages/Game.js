@@ -1,130 +1,120 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View } from 'react-native';
 import { GameHeader, GameMain, GameReport } from '../components';
 import { GameStyle as style } from '../styles';
-import { Verb, Constants } from '../utils';
+import { VerbsList, Constants } from '../utils';
 
-export default class Game extends Component {
+const Game = () => {
 
-    state = {
-        userInput: '',
-        verb: '',
-        coins: Constants.DEFAULT_COINS,
-        coinsText: 'coins',
-        rate: Constants.DEFAULT_RATE,
-        playing: false,
-        timeRemaining: Constants.BASE_TIME_MS,
-        textReport: Constants.TEXT_PLAY,
-        reportImage: Constants.ICON_PLAY_SRC,
-        timer: null
-    }
+    const [userInput, setUserInput] = useState('');
+    const [currentVerb, setCurrentVerb] = useState('');
+    const [coins, setCoins] = useState(Constants.DEFAULT_COINS);
+    const [coinsText, setCoinsText] = useState('coins');
+    const [textReport, setTextReport] = useState(Constants.TEXT_PLAY);
+    const [reportImage, setReportImage] = useState(Constants.ICON_PLAY_SRC);
+    const [isPlaying, setIsPlaying] = useState(false);
+    const [timeRemaining, setTimeRemaining] = useState(Constants.BASE_TIME_MS);
+    const [rate, setRate] = useState(Constants.DEFAULT_RATE);
 
-    regexStartSpace = /^\s*/;
+    const startWithSpace = /^\s*/;
 
-    constructor(props) {
-        super(props);
-    }
+    useEffect(
+        () => { verifyInput(userInput) },
+        [userInput]
+    );
 
-    getVerb = () => {
-        let min = this.state.rate;
-        let max = min + 3;
-        if (max > Verb.length) {
-            max = Verb.length;
-            this.setState({
-                coinsText: this.state.coinsText + '*',
-                rate: Constants.DEFAULT_RATE
-            });
+    useEffect(
+        () => {
+            if (isPlaying && timeRemaining <= 0) {
+                gameOver();
+            }
+        }, [timeRemaining]
+    );
+
+    useEffect(
+        () => { setCurrentVerb(getVerb()) },
+        [rate]
+    );
+
+    useEffect(() => {
+        let interval = null;
+        if (isPlaying && timeRemaining > 0) {
+            interval = setInterval(() => {
+                setTimeRemaining(timeRemaining => timeRemaining - 500);
+            }, 500);
+        } else if (!isPlaying) {
+            clearInterval(interval);
         }
-        let random = Math.floor(Math.random() * (max - min + 1)) + min;
-        return Verb[random];
-    }
+        return () => clearInterval(interval);
+    }, [isPlaying, timeRemaining]);
 
-    levelUp = () => {
-        this.setState({
-            userInput: ' ',
-            coins: this.state.coins + 3,
-            rate: this.state.rate + 4,
-            timeRemaining: Constants.BASE_TIME_MS
-        }, () => {
-            this.setState({
-                verb: this.getVerb(),
-            });
-        });
-    }
-
-    verifyInput = () => {
-        if (this.state.playing && this.state.userInput.toLowerCase() == this.state.verb.pastTenseForm) {
-            this.levelUp();
-        };
+    verifyInput = (userInput) => {
+        if (isPlaying && userInput.toLowerCase() == currentVerb.pastTenseForm) {
+            levelUp();
+        }
     };
 
     restartGame = () => {
-        this.setState({
-            rate: Constants.DEFAULT_RATE,
-            timeRemaining: Constants.BASE_TIME_MS
-        }, () => {
-            clearTimeout(this.state.timer);
-            this.setState({
-                userInput: ' ',
-                verb: this.getVerb(),
-                coins: Constants.DEFAULT_COINS,
-                coinsText: 'coins',
-                playing: true,
-            }, this.startTimer);
-        });
-    }
+        setUserInput(' ');
+        setTimeRemaining(Constants.BASE_TIME_MS);
+        setRate(Constants.DEFAULT_RATE);
+        setCoins(Constants.DEFAULT_COINS);
+        setCoinsText('coins');
+        setCurrentVerb(getVerb());
+        setIsPlaying(true);
+    };
 
-    startTimer = () => {
-        this.setState({
-            timer: setTimeout(() => {
-                if (this.state.timeRemaining <= 0) {
-                    this.gameOver();
-                } else {
-                    this.setState({
-                        timeRemaining: this.state.timeRemaining - 300
-                    }, this.startTimer);
-                }
-            }, 300)
-        });
-    }
+    levelUp = () => {
+        setTimeRemaining(Constants.BASE_TIME_MS);
+        setUserInput(' ');
+        setCoins(coins + 3);
+        setRate(rate + 4);
+    };
 
     gameOver = () => {
-        clearTimeout(this.state.timer);
-        this.setState({
-            playing: false,
-            textReport: `${this.state.verb.baseForm} = ${this.state.verb.pastTenseForm}`,
-            reportImage: Constants.ICON_RESTART_SRC,
-        });
-    }
+        setIsPlaying(false);
+        setTextReport(`${currentVerb.baseForm} = ${currentVerb.pastTenseForm}`);
+        setReportImage(Constants.ICON_RESTART_SRC);
+    };
 
-    render() {
-        return (
-            <View style={style.container}>
-                <GameHeader
-                    coins={this.state.coins}
-                    fnRestart={this.restartGame}
-                    coinsText={this.state.coinsText}
-                    hideRestart={!this.state.playing}
-                />
+    getVerb = () => {
+        let min = rate;
+        let max = min + 3;
+        if (max > VerbsList.length) {
+            max = VerbsList.length;
+            setCoinsText(coinsText + '*');
+            setRate(Constants.DEFAULT_RATE);
+        }
+        let random = Math.floor(Math.random() * (max - min + 1)) + min;
+        return VerbsList[random];
+    };
 
-                <GameReport
-                    isVisible={!this.state.playing}
-                    textReport={this.state.textReport}
-                    onClick={this.restartGame}
-                    sourceImage={this.state.reportImage}
-                />
+    return (
+        <View style={style.container}>
+            <GameHeader
+                coins={coins}
+                fnRestart={restartGame}
+                coinsText={coinsText}
+                hideRestart={!isPlaying}
+            />
 
-                <GameMain
-                    isVisible={this.state.playing}
-                    userInput={this.state.userInput}
-                    verb={this.state.verb.baseForm}
-                    onChangeText={userInput => { 
-                        this.setState({userInput: userInput.replace(this.regexStartSpace, '')}, this.verifyInput);
-                    }}
-                    timeRemaining={this.state.timeRemaining}
-                    totalTime={Constants.BASE_TIME_MS}
-                />
-            </View>
-        );
-    }
+            <GameReport
+                isVisible={!isPlaying}
+                textReport={textReport}
+                onClick={restartGame}
+                sourceImage={reportImage}
+            />
+
+            <GameMain
+                isVisible={isPlaying}
+                userInput={userInput}
+                verb={currentVerb.baseForm}
+                onChangeText={userInput => setUserInput(userInput.replace(startWithSpace, ''))}
+                timeRemaining={timeRemaining}
+                totalTime={Constants.BASE_TIME_MS}
+            />
+        </View>
+    );
 }
+
+export default Game;
