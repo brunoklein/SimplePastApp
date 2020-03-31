@@ -12,12 +12,11 @@ const Game = () => {
     const [coinsText, setCoinsText] = useState('coins');
     const [textReport, setTextReport] = useState(Constants.TEXT_PLAY);
     const [reportImage, setReportImage] = useState(Constants.ICON_PLAY_SRC);
-    const [playing, setPlaying] = useState(false);
+    const [isPlaying, setIsPlaying] = useState(false);
     const [timeRemaining, setTimeRemaining] = useState(Constants.BASE_TIME_MS);
     const [rate, setRate] = useState(Constants.DEFAULT_RATE);
-    const [restartTime, setRestartTime] = useState(null);
-    // const [timer, setTimer] = useState(null);
-    let timer = null;
+
+    const startWithSpace = /^\s*/;
 
     useEffect(
         () => { verifyInput(userInput) },
@@ -26,8 +25,7 @@ const Game = () => {
 
     useEffect(
         () => {
-            console.log(`timeRemaining EFFECT ${timeRemaining}`);
-            if (playing && timeRemaining <= 0) {
+            if (isPlaying && timeRemaining <= 0) {
                 gameOver();
             }
         }, [timeRemaining]
@@ -38,58 +36,48 @@ const Game = () => {
         [rate]
     );
 
-    useEffect(
-        () => {
-            console.log(`RESTART TIME EFFECT`);
-            setUserInput('');
-            setTimeRemaining(Constants.BASE_TIME_MS);
-            setRate(Constants.DEFAULT_RATE);
-            setCoins(Constants.DEFAULT_COINS);
-            setCoinsText('coins');
-            setCurrentVerb(getVerb())
-        }, [restartTime]
-    );
-
-    startNewTimeout = () => {
-        timer = setTimeout(() => {
-            if (playing) {
-                setTimeRemaining(timeRemaining - 1000);
-            }
-        }, 1000);
-    }
+    useEffect(() => {
+        let interval = null;
+        if (isPlaying && timeRemaining > 0) {
+            interval = setInterval(() => {
+                setTimeRemaining(timeRemaining => timeRemaining - 500);
+            }, 500);
+        } else if (!isPlaying) {
+            clearInterval(interval);
+        }
+        return () => clearInterval(interval);
+    }, [isPlaying, timeRemaining]);
 
     verifyInput = (userInput) => {
-        if (playing && userInput.toLowerCase() == currentVerb.pastTenseForm) {
+        if (isPlaying && userInput.toLowerCase() == currentVerb.pastTenseForm) {
             levelUp();
         }
     };
 
-    levelUp = () => {
-        console.log('LEVEL UP');
+    restartGame = () => {
+        setUserInput(' ');
         setTimeRemaining(Constants.BASE_TIME_MS);
-        setUserInput('');
+        setRate(Constants.DEFAULT_RATE);
+        setCoins(Constants.DEFAULT_COINS);
+        setCoinsText('coins');
+        setCurrentVerb(getVerb());
+        setIsPlaying(true);
+    };
+
+    levelUp = () => {
+        setTimeRemaining(Constants.BASE_TIME_MS);
+        setUserInput(' ');
         setCoins(coins + 3);
         setRate(rate + 4);
     };
 
-    restartGame = () => {
-        console.log('RESTART');
-        setRestartTime(new Date().getTime());
-        setPlaying(true);
-        clearTimeout(timer);
-        startNewTimeout();
-    };
-
     gameOver = () => {
-        console.log('GAME OVER', timer);
-        clearTimeout(timer);
-        setPlaying(false);
+        setIsPlaying(false);
         setTextReport(`${currentVerb.baseForm} = ${currentVerb.pastTenseForm}`);
         setReportImage(Constants.ICON_RESTART_SRC);
     };
 
     getVerb = () => {
-        console.log('GET VERB');
         let min = rate;
         let max = min + 3;
         if (max > VerbsList.length) {
@@ -107,21 +95,21 @@ const Game = () => {
                 coins={coins}
                 fnRestart={restartGame}
                 coinsText={coinsText}
-                hideRestart={!playing}
+                hideRestart={!isPlaying}
             />
 
             <GameReport
-                isVisible={!playing}
+                isVisible={!isPlaying}
                 textReport={textReport}
                 onClick={restartGame}
                 sourceImage={reportImage}
             />
 
             <GameMain
-                isVisible={playing}
+                isVisible={isPlaying}
                 userInput={userInput}
                 verb={currentVerb.baseForm}
-                onChangeText={userInput => setUserInput(userInput)}
+                onChangeText={userInput => setUserInput(userInput.replace(startWithSpace, ''))}
                 timeRemaining={timeRemaining}
                 totalTime={Constants.BASE_TIME_MS}
             />
