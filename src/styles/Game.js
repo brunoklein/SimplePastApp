@@ -87,11 +87,6 @@ const style = StyleSheet.create({
         color: Colors.MEDIUM_COLOR,
     },
 
-    textInputInfo: {
-        textAlign: 'center',
-        color: Colors.EASY_COLOR,
-    },
-
 });
 
 export { style };

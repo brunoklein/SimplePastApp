@@ -6,21 +6,19 @@ import { VerbsList, Constants } from '../utils';
 
 const Game = () => {
 
-    const [userInput, setUserInput] = useState('');
-    const [currentVerb, setCurrentVerb] = useState('');
+    const [userInput, setUserInput] = useState(Constants.EMPTY_STRING);
+    const [currentVerb, setCurrentVerb] = useState(Constants.EMPTY_STRING);
     const [coins, setCoins] = useState(Constants.DEFAULT_COINS);
-    const [coinsText, setCoinsText] = useState('coins');
+    const [coinsText, setCoinsText] = useState(Constants.TEXT_COINS);
     const [textReport, setTextReport] = useState(Constants.TEXT_PLAY);
     const [reportImage, setReportImage] = useState(Constants.ICON_PLAY_SRC);
     const [isPlaying, setIsPlaying] = useState(false);
     const [timeRemaining, setTimeRemaining] = useState(Constants.BASE_TIME_MS);
     const [rate, setRate] = useState(Constants.DEFAULT_RATE);
 
-    const startWithSpace = /^\s*/;
-
     useEffect(
-        () => { verifyInput(userInput) },
-        [userInput]
+        () => { verifyUserInput(userInput) }
+        , [userInput]
     );
 
     useEffect(
@@ -48,27 +46,27 @@ const Game = () => {
         return () => clearInterval(interval);
     }, [isPlaying, timeRemaining]);
 
-    verifyInput = (userInput) => {
-        if (isPlaying && userInput.toLowerCase() == currentVerb.pastTenseForm) {
+    verifyUserInput = (input) => {
+        if (isPlaying && input.toLowerCase() == currentVerb.pastTenseForm) {
             levelUp();
         }
     };
 
     restartGame = () => {
-        setUserInput(' ');
+        setUserInput(Constants.EMPTY_STRING);
         setTimeRemaining(Constants.BASE_TIME_MS);
         setRate(Constants.DEFAULT_RATE);
         setCoins(Constants.DEFAULT_COINS);
-        setCoinsText('coins');
+        setCoinsText(Constants.TEXT_COINS);
         setCurrentVerb(getVerb());
         setIsPlaying(true);
     };
 
     levelUp = () => {
         setTimeRemaining(Constants.BASE_TIME_MS);
-        setUserInput(' ');
         setCoins(coins + 3);
         setRate(rate + 4);
+        setUserInput(Constants.EMPTY_STRING);
     };
 
     gameOver = () => {
@@ -109,7 +107,7 @@ const Game = () => {
                 isVisible={isPlaying}
                 userInput={userInput}
                 verb={currentVerb.baseForm}
-                onChangeText={userInput => setUserInput(userInput.replace(startWithSpace, ''))}
+                onChangeText={input => setUserInput(input) }
                 timeRemaining={timeRemaining}
                 totalTime={Constants.BASE_TIME_MS}
             />
