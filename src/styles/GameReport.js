@@ -18,7 +18,7 @@ const style = StyleSheet.create({
     textReport: {
         color: Colors.MEDIUM_COLOR,
         fontWeight: 'bold',
-        fontSize: 32,
+        fontSize: 26,
         marginBottom: 20,
     },
 
