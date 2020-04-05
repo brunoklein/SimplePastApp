@@ -9,7 +9,6 @@ const Game = () => {
     const [userInput, setUserInput] = useState(Constants.EMPTY_STRING);
     const [currentVerb, setCurrentVerb] = useState(Constants.EMPTY_STRING);
     const [coins, setCoins] = useState(Constants.DEFAULT_COINS);
-    const [coinsText, setCoinsText] = useState(Constants.TEXT_COINS);
     const [textReport, setTextReport] = useState(Constants.TEXT_PLAY);
     const [reportImage, setReportImage] = useState(Constants.ICON_PLAY_SRC);
     const [isPlaying, setIsPlaying] = useState(false);
@@ -57,7 +56,6 @@ const Game = () => {
         setTimeRemaining(Constants.BASE_TIME_MS);
         setRate(Constants.DEFAULT_RATE);
         setCoins(Constants.DEFAULT_COINS);
-        setCoinsText(Constants.TEXT_COINS);
         setCurrentVerb(getVerb());
         setIsPlaying(true);
     };
@@ -76,14 +74,22 @@ const Game = () => {
     };
 
     getVerb = () => {
+        let maxRandom = VerbsList.length - 1;
         let min = rate;
         let max = min + 3;
-        if (max > VerbsList.length) {
-            max = VerbsList.length;
-            setCoinsText(coinsText + '*');
+        let random = 0;
+
+        if (min >= maxRandom) {
             setRate(Constants.DEFAULT_RATE);
+            return VerbsList[maxRandom]
         }
-        let random = Math.floor(Math.random() * (max - min + 1)) + min;
+        
+        if (max >= maxRandom) {
+            setRate(Constants.DEFAULT_RATE);
+            max = maxRandom;
+        }
+
+        random = Math.floor(Math.random() * (max - min + 1)) + min;
         return VerbsList[random];
     };
 
@@ -92,7 +98,7 @@ const Game = () => {
             <GameHeader
                 coins={coins}
                 fnRestart={restartGame}
-                coinsText={coinsText}
+                coinsText={Constants.TEXT_COINS}
                 hideRestart={!isPlaying}
             />
 
