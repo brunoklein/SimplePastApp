@@ -7,6 +7,6 @@ export const TEXT_PLAY = 'are you ready?';
 export const TEXT_PLACEHOLDER = 'type the simple past here';
 export const TEXT_APP_NAME = 'Simple Past App';
 export const TEXT_COINS = 'coins';
-export const APP_VERSION = '1.0';
+export const APP_VERSION = '1.1';
 export const BASE_TIME_MS = 7000;
 export const EMPTY_STRING = '';
