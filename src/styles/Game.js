@@ -5,14 +5,16 @@ const style = StyleSheet.create({
 
     container: {
         flex: 1,
+        width: '100%',
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: Colors.BACKGROUND_COLOR,
     },
-
+    
     main: {
         flex: 1,
+        width: '100%',
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
@@ -46,7 +48,6 @@ const style = StyleSheet.create({
         height: 32,
         width: 32,
         tintColor: Colors.EASY_COLOR,
-
     },
 
     coins: {
@@ -60,7 +61,6 @@ const style = StyleSheet.create({
         color: 'gold',
         fontSize: 18,
         color: Colors.EASY_COLOR,
-
     },
 
     textInputView: {
@@ -71,6 +71,7 @@ const style = StyleSheet.create({
 
     verbView: {
         flex: 3,
+        width: '100%',
         justifyContent: 'center',
         alignItems: 'center',
     },

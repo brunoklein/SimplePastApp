@@ -5,12 +5,14 @@ const style = StyleSheet.create({
 
     container: {
         flex: 1,
+        width: '100%',
         flexDirection: 'column',
         alignItems: 'center',
     },
 
     textReportView: {
         flex: 1,
+        width: '100%',
         justifyContent: 'flex-end',
         alignItems: 'center',
     },
