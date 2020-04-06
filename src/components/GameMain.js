@@ -1,6 +1,6 @@
 import React from 'react';
 import { TextInput, Text, View } from 'react-native';
-import { GameStyle as style, Colors } from '../styles';
+import { GameMain as style, Colors } from '../styles';
 import { Constants } from '../utils';
 import TimeLine from './TimeLine';
 

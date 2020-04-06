@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View } from 'react-native';
 import { GameHeader, GameMain, GameReport } from '../components';
-import { GameStyle as style } from '../styles';
+import { GameMain as style } from '../styles';
 import { VerbsList, Constants } from '../utils';
 
 const Game = () => {

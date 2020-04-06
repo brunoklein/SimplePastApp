@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, Image } from 'react-native';
-import { GameReportStyle as style } from '../styles';
+import { GameReport as style } from '../styles';
 import { Constants } from '../utils';
 
 const GameReport = ({ isVisible, textReport, onClick, sourceImage }) => {

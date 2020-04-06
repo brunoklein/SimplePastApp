@@ -1,6 +1,6 @@
 import React from 'react';
 import { View } from 'react-native';
-import { TimeLineStyle as style } from '../styles';
+import { TimeLine as style } from '../styles';
 
 const TimeLine = ({ totalTime, timeRemaining }) => {
     let width = (timeRemaining * 100) / totalTime;

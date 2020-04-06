@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, View, Image } from 'react-native';
-import { GameStyle as style } from '../styles';
+import { GameHeader as style } from '../styles';
 import { Constants } from '../utils';
 
 const GameHeader = ({ coins, coinsText, fnRestart, fnShare, hideRestart, hideShare }) => {
