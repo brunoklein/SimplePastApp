@@ -1,23 +1,47 @@
-React Native App used to practice english verbs conjugation.
+![](https://imgur.com/01MQeh8)
 
-Features:
+A React Native app used to practice English verbs conjugation.
 
-- Training game - past simple;
-- Coins/right answer counter;
-- Restart button;
+## Features
+
+- Training game - base form to past simple form;
 - Chronometer (user has X seconds to answer, if no answer then game over);
-- Splash screen and icon (Android);
+- Restart button;
+- Coins/right answer counter;
 
-To do:
+## Screenshots
+
+![](https://imgur.com/VdM258p)
+![](https://imgur.com/zigS282)
+![](https://imgur.com/mYxHpgo)
+
+## Install and Contributing
+
+1. [Fork](https://help.github.com/articles/fork-a-repo/) this repository to your own GitHub account and then [clone](https://help.github.com/articles/cloning-a-repository/) it to your local device;
+2. Run `npm install` in the project root dir;
+3. Run `npx react-native run-android` in the project root dir to start a emulator and the app;
+4. Send a pull request :)
+
+## To do
 
 - Analytics
 - Open Google Translate with the verb;
-- Get Verbs interface;
 - Settings
     - Select your language option;
-- Ads;
+- Backend services;
 - Profile page;
 - History page;
 - Ranking page;
-- Backend services;
+- Ads;
+- iOS version; 
 - Past participle form;
+
+## Credits
+
+Matheus Bereta - UI Test Automation
+Teacher Clayton - Tests and validations
+Camila Almeida - Tests and validations
+
+## Author
+
+Bruno Klein
