@@ -1,7 +1,7 @@
 ![](https://i.imgur.com/01MQeh8.png)
 
 A React Native app used to practice English verbs conjugation.
-[Available on Google Play](www.shorturl.at/hmWX2)
+[Available on Google Play.](www.shorturl.at/hmWX2)
 
 ## Features
 
