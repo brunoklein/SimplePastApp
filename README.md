@@ -1,6 +1,7 @@
-![](https://imgur.com/01MQeh8)
+![](https://i.imgur.com/01MQeh8.png)
 
 A React Native app used to practice English verbs conjugation.
+[Available on Google Play](www.shorturl.at/hmWX2)
 
 ## Features
 
@@ -10,10 +11,9 @@ A React Native app used to practice English verbs conjugation.
 - Coins/right answer counter;
 
 ## Screenshots
-
-![](https://imgur.com/VdM258p)
-![](https://imgur.com/zigS282)
-![](https://imgur.com/mYxHpgo)
+![](https://i.imgur.com/VdM258p.png)
+![](https://i.imgur.com/zigS282.png)
+![](https://i.imgur.com/mYxHpgo.png)
 
 ## Install and Contributing
 
@@ -39,7 +39,9 @@ A React Native app used to practice English verbs conjugation.
 ## Credits
 
 Matheus Bereta - UI Test Automation
+
 Teacher Clayton - Tests and validations
+
 Camila Almeida - Tests and validations
 
 ## Author
