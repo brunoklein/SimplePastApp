@@ -11,9 +11,7 @@ A React Native app used to practice English verbs conjugation.
 - Coins/right answer counter;
 
 ## Screenshots
-![](https://i.imgur.com/VdM258p.png)
-![](https://i.imgur.com/zigS282.png)
-![](https://i.imgur.com/mYxHpgo.png)
+![](https://i.imgur.com/9U0n0Kr.png)
 
 ## Install and Contributing
 
