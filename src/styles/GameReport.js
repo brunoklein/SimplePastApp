@@ -7,13 +7,18 @@ const style = StyleSheet.create({
         flex: 1,
         width: '100%',
         flexDirection: 'column',
+        justifyContent: 'center',
         alignItems: 'center',
     },
 
-    textReportView: {
-        flex: 1,
-        width: '100%',
-        justifyContent: 'flex-end',
+    reportView: {
+        flex: 2,
+        alignItems: 'center',
+        justifyContent: 'center',
+
+    },
+
+    itensReportView: { 
         alignItems: 'center',
     },
 
@@ -21,22 +26,21 @@ const style = StyleSheet.create({
         color: Colors.MEDIUM_COLOR,
         fontWeight: 'bold',
         fontSize: 26,
-        marginBottom: 20,
+        marginTop: 15,
     },
 
     imageView: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
+        marginTop: 50
     },
 
     image: {
-        height: 55,
-        width: 55,
+        alignSelf: 'center',
+        height: 46,
+        width: 46,
         tintColor: Colors.EASY_COLOR,
     },
 
-    textBottomView: {
+    bottomView: {
         flex: 1,
         justifyContent: 'flex-end',
     },
@@ -44,8 +48,13 @@ const style = StyleSheet.create({
     textBottom: {
         color: Colors.EASY_COLOR,
         fontSize: 12,
-        textAlign: 'center',
-        marginBottom: 15,
+        bottom: 15
+    },
+
+    textTranslate: {
+        color: Colors.MEDIUM_COLOR,
+        fontSize: 12,
+        textAlign: 'center',     
     },
 
 });

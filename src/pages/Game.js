@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { View } from 'react-native';
+import { View, Linking } from 'react-native';
 import { GameHeader, GameMain, GameReport } from '../components';
 import { GameMain as style } from '../styles';
-import { VerbsList, Constants } from '../utils';
+import { VerbsList, Constants, Analytics, ConstantsAnalytics } from '../utils';
 
 const Game = () => {
 
@@ -15,11 +15,13 @@ const Game = () => {
     const [timeRemaining, setTimeRemaining] = useState(Constants.BASE_TIME_MS);
     const [rate, setRate] = useState(Constants.DEFAULT_RATE);
 
+    // on userInput changes
     useEffect(
         () => { verifyUserInput(userInput) }
         , [userInput]
     );
 
+    // on timeRemaining changes
     useEffect(
         () => {
             if (isPlaying && timeRemaining <= 0) {
@@ -28,11 +30,13 @@ const Game = () => {
         }, [timeRemaining]
     );
 
+    // on rate changes
     useEffect(
         () => { setCurrentVerb(getVerb()) },
         [rate]
     );
 
+    // on isPlaying or timeRemaining changes
     useEffect(() => {
         let interval = null;
         if (isPlaying && timeRemaining > 0) {
@@ -52,6 +56,7 @@ const Game = () => {
     };
 
     restartGame = () => {
+        Analytics.logEvent(ConstantsAnalytics.RESTART, { coins: coins });
         setUserInput(Constants.EMPTY_STRING);
         setTimeRemaining(Constants.BASE_TIME_MS);
         setRate(Constants.DEFAULT_RATE);
@@ -61,6 +66,7 @@ const Game = () => {
     };
 
     levelUp = () => {
+        Analytics.logEvent(ConstantsAnalytics.LEVEL_UP, { coins: coins });
         setTimeRemaining(Constants.BASE_TIME_MS);
         setCoins(coins + 3);
         setRate(rate + 4);
@@ -68,6 +74,7 @@ const Game = () => {
     };
 
     gameOver = () => {
+        Analytics.logEvent(ConstantsAnalytics.GAMEOVER, { verb_id: currentVerb.id, verb_base_form: currentVerb.baseForm, coins: coins });
         setIsPlaying(false);
         setTextReport(`${currentVerb.baseForm} = ${currentVerb.pastTenseForm}`);
         setReportImage(Constants.ICON_RESTART_SRC);
@@ -83,7 +90,7 @@ const Game = () => {
             setRate(Constants.DEFAULT_RATE);
             return VerbsList[maxRandom]
         }
-        
+
         if (max >= maxRandom) {
             setRate(Constants.DEFAULT_RATE);
             max = maxRandom;
@@ -91,6 +98,13 @@ const Game = () => {
 
         random = Math.floor(Math.random() * (max - min + 1)) + min;
         return VerbsList[random];
+    };
+
+
+    translate = () => {
+        Analytics.logEvent(ConstantsAnalytics.TRANSLATE, { verb_id: currentVerb.id, verb_base_form: currentVerb.baseForm, coins: coins });
+        Linking.openURL(`https://translate.google.com/#auto/pt/${currentVerb.baseForm}`)
+            .catch(err => console.log("Couldn't load page.", err));
     };
 
     return (
@@ -105,15 +119,16 @@ const Game = () => {
             <GameReport
                 isVisible={!isPlaying}
                 textReport={textReport}
-                onClick={restartGame}
+                onClickImage={restartGame}
                 sourceImage={reportImage}
+                onClickTranslate={reportImage == Constants.ICON_RESTART_SRC ? translate : null}
             />
 
             <GameMain
                 isVisible={isPlaying}
                 userInput={userInput}
                 verb={currentVerb.baseForm}
-                onChangeText={input => setUserInput(input) }
+                onChangeText={input => setUserInput(input)}
                 timeRemaining={timeRemaining}
                 totalTime={Constants.BASE_TIME_MS}
             />
