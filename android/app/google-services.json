@@ -1,3 +1,40 @@
 {
-    "YOUR_GOOGLE_SERVICES_FILE": "YOUR_GOOGLE_SERVICES_FILE"
-}
+    "project_info": {
+      "project_number": "0123456789",
+      "firebase_url": "https://firebaseio.com",
+      "project_id": "project_id",
+      "storage_bucket": "storage_bucket"
+    },
+    "client": [
+      {
+        "client_info": {
+          "mobilesdk_app_id": "1:0123456789:android:0123456789",
+          "android_client_info": {
+            "package_name": "com.simplepastapp"
+          }
+        },
+        "oauth_client": [
+          {
+            "client_id": "0123456789-0123456789.apps.googleusercontent.com",
+            "client_type": 3
+          }
+        ],
+        "api_key": [
+          {
+            "current_key": "0123456789"
+          }
+        ],
+        "services": {
+          "appinvite_service": {
+            "other_platform_oauth_client": [
+              {
+                "client_id": "0123456789-0123456789.apps.googleusercontent.com",
+                "client_type": 3
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "configuration_version": "1"
+  }
