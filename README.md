@@ -9,6 +9,8 @@ A React Native app used to practice English verbs conjugation.
 - Chronometer (user has X seconds to answer, if no answer then game over);
 - Restart button;
 - Coins/right answer counter;
+- Google Translate Link
+- Analytics/Firebase
 
 ## Screenshots
 ![](https://i.imgur.com/9U0n0Kr.png)
@@ -22,17 +24,14 @@ A React Native app used to practice English verbs conjugation.
 
 ## To do
 
-- Analytics
-- Open Google Translate with the verb;
-- Settings
+- Settings page
     - Select your language option;
-- Backend services;
-- Profile page;
-- History page;
 - Ranking page;
+- Profile page;
 - Ads;
-- iOS version; 
+- Backend services;
 - Past participle form;
+- iOS version; 
 
 ## Credits
 
