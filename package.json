@@ -12,6 +12,7 @@
   "dependencies": {
     "@react-native-firebase/analytics": "^6.7.1",
     "@react-native-firebase/app": "^6.7.1",
+    "axios": "^0.19.2",
     "react": "16.9.0",
     "react-native": "0.61.5",
     "react-native-device-info": "^5.5.6"
