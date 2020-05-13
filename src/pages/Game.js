@@ -102,6 +102,8 @@ const Game = () => {
 
   const translate = () => {
     Analytics.logEvent(ConstantsAnalytics.TRANSLATE, { verb_id: currentVerb.id, verb_base_form: currentVerb.baseForm, coins: coins });
+    Linking.openURL(`https://translate.google.com/#auto/pt/${currentVerb.baseForm}`)
+      .catch(err => console.log("Couldn't load page.", err));
   };
 
   return (
