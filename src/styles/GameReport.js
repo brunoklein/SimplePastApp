@@ -36,7 +36,7 @@ const style = StyleSheet.create({
     backgroundColor: Colors.HARD_COLOR,
     width: 120,
     height: 40,
-
+    marginTop: 23,
     borderRadius: 50,
     display: 'flex',
     flexDirection: 'row',

@@ -25,9 +25,6 @@ const GameReport = ({
   sourceImage,
   onClickTranslate,
 }) => {
-  const [translating, setTranslating] = useState(false);
-  const [translation, setTranslation] = useState(null);
-
   if (!isVisible) return null;
 
   return (
@@ -41,30 +38,14 @@ const GameReport = ({
             : null
           }
 
-          {translation && <View style={style.translationResultView}>
-            {/* <Text style={style.translationResultTitle}>Tradução</Text> */}
-            <Text style={style.translationResultText}>{translation.translation.translation}</Text>
-          </View>}
-
-          {showTranslate && !translation && <View style={style.imageView}>
-            <TouchableOpacity
-              onPress={() => {
-                setTranslating(true);
-                getTranslation(verb.baseForm)
-                  .then((tr) => {
-                    setTranslation(tr);
-                    setTranslating(false);
-                    onClickTranslate();
-                  }).catch(() => {
-                    setTranslating(false);
-                  });
-              }}
-              style={style.translateButtonWrapper}>
-              <Text style={style.textTranslate}>Translate</Text>
-              {translating && <ActivityIndicator size='small' color='#ffffff' />}
-            </TouchableOpacity>
-          </View>}
-
+          {showTranslate && <TouchableOpacity
+            onPress={() => {
+              onClickTranslate();
+            }}
+            style={style.translateButtonWrapper}>
+            <Text style={style.textTranslate}>Translate</Text>
+            {/* {translating && <ActivityIndicator size='small' color='#ffffff' />} */}
+          </TouchableOpacity>}
 
           <View style={style.imageView} onTouchEnd={onClickImage}>
             <Image source={sourceImage || Constants.ICON_PLAY_SRC} style={style.image}></Image>
